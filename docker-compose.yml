@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  rustdatavoyage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/rustdatavoyage
+      - cargo-cache:/usr/local/cargo/registry
+    command: /usr/local/bin/rustdatavoyage
+
+volumes:
+  cargo-cache:

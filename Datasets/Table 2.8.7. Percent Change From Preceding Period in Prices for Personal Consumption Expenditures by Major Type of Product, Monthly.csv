@@ -1,0 +1,45 @@
+"Table 2.8.7. Percent Change From Preceding Period in Prices for Personal Consumption Expenditures by Major Type of Product, Monthly"
+"Table 2.8.7. Percent Change From Preceding Period in Prices for Personal Consumption Expenditures by Major Type of Product, Monthly"
+"Last Revised on: October 27, 2023 - Next Release Date November 30, 2023"
+Line,,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2023,2023,2023,2023,2023,2023,2023,2023,2023
+Line,,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP
+1,"        Personal consumption expenditures (PCE)",0.5,0.6,0.8,0.3,0.6,0.9,0.0,0.3,0.4,0.5,0.2,0.2,0.6,0.3,0.1,0.3,0.1,0.2,0.2,0.4,0.4
+2,Goods,0.9,1.0,1.4,0.1,0.9,1.5,-0.5,-0.1,0.0,0.4,-0.2,-0.5,0.5,0.2,-0.2,0.3,-0.1,-0.1,-0.3,0.8,0.2
+3,"    Durable goods",1.2,0.2,-0.3,0.0,0.4,0.6,-0.3,0.6,0.4,-0.4,-0.5,-0.2,0.2,-0.2,-0.1,0.1,0.2,-0.4,-0.7,-0.3,-0.1
+4,"        Motor vehicles and parts",1.1,0.1,-1.2,0.2,1.3,0.5,0.1,0.5,0.2,-0.2,-0.2,-0.4,-0.4,-1.0,0.0,1.5,1.3,-0.2,-0.6,-0.2,-0.8
+5,"        Furnishings and durable household equipment",1.9,0.8,1.4,0.7,-0.5,0.3,0.3,0.7,0.1,-0.6,-0.5,0.2,0.6,0.1,-0.1,-1.0,-0.6,-0.3,-0.2,0.2,-0.4
+6,"        Recreational goods and vehicles",0.9,0.2,-0.7,-0.4,0.1,0.9,-1.1,0.7,0.5,-0.3,-1.4,-0.8,0.6,0.4,-0.3,-0.7,-0.2,-0.8,-1.2,-0.8,1.2
+7,"        Other durable goods",1.1,-1.0,0.3,-0.4,0.5,0.3,-0.3,0.2,1.0,-0.6,0.6,1.1,0.5,0.1,0.1,0.4,0.0,0.2,-0.4,-0.5,-0.8
+8,"    Nondurable goods",0.7,1.5,2.3,0.1,1.1,2.0,-0.6,-0.5,-0.3,0.8,0.0,-0.7,0.7,0.4,-0.3,0.4,-0.3,0.1,0.0,1.4,0.3
+9,"        Food and beverages purchased for off-premises consumption",0.8,1.3,1.2,0.9,1.2,1.0,1.2,0.8,0.7,0.5,0.5,0.4,0.4,0.2,-0.2,0.0,0.2,-0.1,0.2,0.2,0.3
+10,"        Clothing and footwear",0.7,0.7,0.3,-0.1,0.4,0.6,-0.1,0.3,-0.1,-0.2,0.0,0.1,0.7,0.7,0.3,0.3,0.4,0.3,0.0,0.3,-0.6
+11,"        Gasoline and other energy goods",0.3,4.7,13.2,-2.5,3.9,9.2,-7.9,-7.9,-3.9,4.2,-2.0,-7.2,1.9,0.4,-4.5,2.4,-5.5,0.7,0.2,10.2,2.3
+12,"        Other nondurable goods",0.6,0.9,0.3,0.3,0.3,0.7,0.6,0.8,0.1,0.3,0.1,0.2,0.6,0.4,0.7,0.1,0.5,0.0,-0.3,0.3,0.0
+13,Services,0.3,0.4,0.6,0.4,0.4,0.6,0.3,0.6,0.6,0.5,0.4,0.6,0.6,0.4,0.3,0.3,0.2,0.3,0.4,0.2,0.5
+14,"    Household consumption expenditures (for services)",0.4,0.4,0.5,0.4,0.4,0.6,0.2,0.5,0.6,0.5,0.4,0.5,0.5,0.4,0.3,0.3,0.2,0.3,0.5,0.2,0.5
+15,"        Housing and utilities",0.6,0.5,0.5,0.6,0.8,0.9,0.6,0.8,0.8,0.5,0.5,0.9,0.8,0.5,0.2,0.3,0.4,0.4,0.4,0.4,0.5
+16,"        Health care",0.6,0.1,0.1,-0.1,0.2,0.6,0.2,0.2,0.2,0.3,0.1,0.1,0.0,0.2,0.3,0.4,0.2,0.1,0.4,0.0,0.2
+17,"        Transportation services",-1.6,1.2,4.6,2.0,0.3,1.7,-0.8,0.7,1.7,1.0,-0.5,1.8,1.0,0.6,0.6,-1.0,0.0,-0.4,1.0,-0.7,1.8
+18,"        Recreation services",0.6,0.7,0.4,0.1,0.5,0.6,0.6,0.0,0.1,0.6,1.0,0.5,0.7,0.9,0.0,0.3,-0.3,0.5,0.7,0.2,0.6
+19,"        Food services and accommodations",0.2,0.8,0.5,0.6,0.8,0.2,0.3,0.6,0.6,1.2,0.3,0.5,0.7,0.7,0.8,0.0,0.7,0.0,0.1,-0.2,0.8
+20,"        Financial services and insurance",0.8,-0.4,0.2,0.2,0.1,0.1,-0.5,1.1,0.6,0.0,0.9,0.5,0.8,0.3,-0.3,0.5,-0.3,0.5,1.6,0.6,0.3
+21,"        Other services",0.1,0.6,0.3,0.3,0.0,0.5,0.4,0.1,0.5,0.3,0.5,0.3,0.5,0.3,0.3,1.0,0.2,0.4,-0.2,0.1,0.0
+22,"    Final consumption expenditures of nonprofit institutions serving households (NPISHs)1",-1.2,0.4,1.1,1.6,0.2,0.0,0.9,1.2,1.0,0.5,1.3,1.2,1.0,-0.4,0.8,-0.2,0.8,0.9,-0.2,0.3,0.3
+23,"        Gross output of nonprofit institutions2",0.3,0.2,0.4,0.5,0.3,0.5,0.5,0.5,0.4,0.3,0.4,0.5,0.4,0.0,0.5,0.4,0.4,0.4,0.2,0.1,0.3
+24,"        Less: Receipts from sales of goods and services by nonprofit institutions3",0.8,0.2,0.2,0.0,0.3,0.7,0.3,0.2,0.1,0.2,0.1,0.2,0.2,0.2,0.4,0.6,0.2,0.2,0.4,0.0,0.3
+,Addenda:,,,,,,,,,,,,,,,,,,,,,
+25,"    PCE excluding food and energy4",0.5,0.4,0.4,0.3,0.4,0.6,0.2,0.5,0.5,0.3,0.3,0.4,0.5,0.4,0.3,0.3,0.3,0.2,0.2,0.1,0.3
+26,"    PCE excluding food, energy, and housing4",0.5,0.4,0.4,0.3,0.3,0.5,0.1,0.5,0.4,0.3,0.2,0.3,0.5,0.3,0.3,0.3,0.2,0.1,0.2,0.1,0.2
+27,"    Energy goods and services5",1.0,2.9,8.7,-1.2,3.4,6.9,-5.1,-4.3,-2.0,2.3,-1.4,-3.6,1.9,-0.5,-3.7,0.8,-3.8,0.6,0.1,6.1,1.7
+28,"    PCE services excluding energy and housing",0.2,0.3,0.6,0.4,0.3,0.5,0.1,0.5,0.5,0.5,0.4,0.5,0.5,0.4,0.3,0.3,0.2,0.2,0.5,0.1,0.4
+29,"    Housing",0.5,0.5,0.5,0.5,0.6,0.7,0.6,0.7,0.8,0.6,0.7,0.8,0.7,0.7,0.5,0.5,0.5,0.5,0.5,0.4,0.5
+30,"    Market-based PCE6",0.6,0.7,0.9,0.3,0.6,1.0,0.0,0.2,0.3,0.5,0.1,0.2,0.5,0.4,0.1,0.3,0.1,0.1,0.1,0.4,0.4
+31,"    Market-based PCE excluding food and energy6",0.5,0.5,0.4,0.3,0.4,0.6,0.2,0.5,0.4,0.4,0.2,0.4,0.5,0.4,0.4,0.3,0.3,0.1,0.1,0.1,0.4
+
+Legend/Footnotes
+"1. Net expenses of NPISHs, defined as their gross operating expenses less primary sales to households."
+"2. Gross output is net of unrelated sales, secondary sales, and sales to business, to government, and to the rest of the world; excludes own-account investment (construction and software)."
+"3. Excludes unrelated sales, secondary sales, and sales to business, to government, and to the rest of the world; includes membership dues and fees."
+"4. Food consists of food and beverages purchased for off-premises consumption; food services, which include purchased meals and beverages, are not classified as food."
+5. Consists of gasoline and other energy goods and of electricity and gas services.
+"6. Market-based PCE is a supplemental measure that is based on household expenditures for which there are observable price measures.It excludes most imputed transactions (for example, financial services furnished without payment) and the final consumption expenditures of nonprofit institutions serving households."

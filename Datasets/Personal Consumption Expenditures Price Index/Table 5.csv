@@ -1,0 +1,35 @@
+Unnamed: 0,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9
+Table 5. Price Indexes for Personal Consumption Expenditures: Level and Percent Change from Preceding Period (Months),,,,,,,,,
+,,,,,,,,,
+Line,,2023,2023,2023,2023,2023,2023,2023,2023
+Line,,Feb.,March,April,May,June,July r,Aug. r,Sept. p
+,"Chain-type price indexes (2017=100), seasonally adjusted",,,,,,,,
+1,Personal consumption expenditures (PCE),119.386,119.53,119.893,120.02,120.221,120.471,120.917,121.348
+2,Goods,114.994,114.73,115.038,114.882,114.794,114.489,115.378,115.567
+3,Durable goods,108.507,108.4,108.514,108.772,108.39,107.615,107.259,107.147
+4,Nondurable goods,118.618,118.259,118.685,118.279,118.369,118.349,119.995,120.368
+5,Services,121.413,121.774,122.165,122.441,122.797,123.343,123.552,124.11
+,Addenda:,,,,,,,,
+6,PCE excluding food and energy,117.883,118.279,118.642,118.984,119.189,119.443,119.583,119.94
+7,Food 1,124.986,124.742,124.723,124.919,124.79,125.082,125.394,125.769
+8,Energy goods and services 2,142.819,137.598,138.727,133.395,134.192,134.296,142.455,144.816
+9,Market-based PCE 3,118.106,118.258,118.584,118.698,118.814,118.989,119.424,119.954
+10,Market-based PCE excluding food and energy 3,116.166,116.611,116.932,117.292,117.4,117.568,117.648,118.108
+,"Percent change from preceding period in price indexes, seasonally adjusted at monthly rates",,,,,,,,
+11,Personal consumption expenditures (PCE),0.3,0.1,0.3,0.1,0.2,0.2,0.4,0.4
+12,Goods,0.2,-0.2,0.3,-0.1,-0.1,-0.3,0.8,0.2
+13,Durable goods,-0.2,-0.1,0.1,0.2,-0.4,-0.7,-0.3,-0.1
+14,Nondurable goods,0.4,-0.3,0.4,-0.3,0.1,0,1.4,0.3
+15,Services,0.4,0.3,0.3,0.2,0.3,0.4,0.2,0.5
+,Addenda:,,,,,,,,
+16,PCE excluding food and energy,0.4,0.3,0.3,0.3,0.2,0.2,0.1,0.3
+17,Food 1,0.2,-0.2,0,0.2,-0.1,0.2,0.2,0.3
+18,Energy goods and services 2,-0.5,-3.7,0.8,-3.8,0.6,0.1,6.1,1.7
+19,Market-based PCE 3,0.4,0.1,0.3,0.1,0.1,0.1,0.4,0.4
+20,Market-based PCE excluding food and energy 3,0.4,0.4,0.3,0.3,0.1,0.1,0.1,0.4
+p Preliminary,,,,,,,,,
+r Revised,,,,,,,,,
+"1. Food consists of food and beverages purchased for off-premises consumption; food services, which include purchased meals and beverages, are not classified as food.",,,,,,,,,
+2. Consists of gasoline and other energy goods and of electricity and gas services.,,,,,,,,,
+"3. Market-based PCE is a supplemental measure that is based on household expenditures for which there are observable price measures. It excludes most imputed transactions (for example, financial services furnished without payment) and the final consumption expenditures of nonprofit institutions serving households.",,,,,,,,,
+Source: U.S. Bureau of Economic Analysis,,,,,,,,,

@@ -1,0 +1,60 @@
+Unnamed: 0,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9
+"Table 2. Personal Income and Its Disposition, Change from Preceding Period (Months)",,,,,,,,,
+[Billions of dollars],,,,,,,,,
+Line,,Seasonally adjusted at annual rates,Seasonally adjusted at annual rates,Seasonally adjusted at annual rates,Seasonally adjusted at annual rates,Seasonally adjusted at annual rates,Seasonally adjusted at annual rates,Seasonally adjusted at annual rates,Seasonally adjusted at annual rates
+Line,,2023,2023,2023,2023,2023,2023,2023,2023
+Line,,Feb.,March,April,May,June,July r,Aug. r,Sept. p
+1,Personal income,123.1,109.5,57.8,77.3,48.4,52.8,94,77.8
+2,Compensation of employees,83.4,73.1,62,66.1,71.6,56.6,68.1,52.9
+3,Wages and salaries,73.8,64.6,57.3,57.9,62.1,47.4,58.4,44
+4,Private industries,64.5,54.8,49.6,50.1,54.5,32.1,47.1,31.5
+5,Goods-producing industries,2.2,11.8,13.5,10.7,11.8,9.9,10,6.7
+6,Manufacturing,-1.7,6.9,9.1,4.2,10.4,3.4,4.8,3
+7,Services-producing industries,62.4,43,36.1,39.4,42.7,22.2,37.1,24.8
+8,"Trade, transportation, and utilities",17,0.3,9.4,0.4,14.1,3.9,9.2,8.6
+9,Other services-producing industries,45.3,42.8,26.7,38.9,28.6,18.3,28,16.2
+10,Government,9.3,9.8,7.7,7.8,7.6,15.3,11.3,12.5
+11,Supplements to wages and salaries,9.6,8.5,4.7,8.2,9.6,9.2,9.6,8.9
+12,Employer contributions for employee pension and insurance funds 1,5,4.5,1.2,4.6,5.6,6.3,5.9,6
+13,Employer contributions for government social insurance,4.6,4,3.5,3.6,3.9,2.9,3.8,2.9
+14,Proprietors' income with inventory valuation and capital consumption adjustments,-3.5,-7.1,-0.4,0.2,8.6,6.1,11,7.8
+15,Farm,-7.5,-7.5,-2.8,-2.8,-2.8,-1,-1,-1
+16,Nonfarm,4,0.3,2.4,3,11.3,7.1,12,8.9
+17,Rental income of persons with capital consumption adjustment,14.9,14.9,0,0.1,1,5.5,7.3,7.2
+18,Personal income receipts on assets,11.6,30,6,3.4,-19.5,14.4,19.1,19.3
+19,Personal interest income,8.1,8.3,1,1.2,1.3,17.3,17.5,17.6
+20,Personal dividend income,3.4,21.7,5,2.2,-20.8,-2.9,1.6,1.7
+21,Personal current transfer receipts,25.5,6.4,-2.9,14.5,-5.5,-23.8,-3.8,-3.6
+22,Government social benefits to persons,24.8,5.7,-3.5,13.9,-6.1,-24.4,-4.4,-7.8
+23,Social security 2,4.7,4.5,5.4,4.8,2.1,1.4,3.6,2.3
+24,Medicare 3,1.1,1.2,1.3,1.3,1.4,1.5,1.5,1.6
+25,Medicaid,14.9,14.6,22,8,-6.4,-17.3,-11.9,-5.6
+26,Unemployment insurance,0.9,0.8,0,-0.5,-0.7,-0.5,-0.1,-0.2
+27,Veterans' benefits,-0.2,-0.3,0,-0.3,0.1,0.1,0.2,0.2
+28,Other,3.5,-15.1,-32.2,0.5,-2.6,-9.6,2.2,-6
+29,"Other current transfer receipts, from business (net)",0.7,0.7,0.6,0.6,0.6,0.6,0.6,4.2
+30,"Less: Contributions for government social insurance, domestic",8.8,7.7,6.8,7.1,7.9,5.9,7.6,5.9
+31,Less: Personal current taxes,-3.8,-3,-51.2,-14.9,22.4,58.3,42.2,21.7
+32,Equals: Disposable personal income,126.9,112.5,109.1,92.2,26,-5.5,51.8,56.1
+33,Less: Personal outlays,72,-9,106.1,69.2,102.9,154.7,81.4,175.1
+34,Personal consumption expenditures,66.9,-14,81.3,43.9,77.6,149.4,79.8,138.7
+35,Goods,16,-75,50,5.6,5.4,36.8,43.5,42.5
+36,Durable goods,-10.1,-36.3,16.5,19.1,-8.6,12.7,-7.7,22.3
+37,Nondurable goods,26.1,-38.7,33.5,-13.5,14,24,51.2,20.2
+38,Services,51,61,31.3,38.4,72.3,112.7,36.3,96.2
+39,Personal interest payments 4,4.8,4.8,25,25,25,2.5,1.3,36.1
+40,Personal current transfer payments,0.2,0.2,-0.2,0.2,0.3,2.8,0.3,0.3
+41,To government,0.2,0.2,0.3,0.2,0.3,0.3,0.3,0.3
+42,To the rest of the world (net),0,0,-0.4,0,0,2.5,0,0
+43,Equals: Personal saving,54.9,121.5,2.9,23,-77,-160.2,-29.6,-119
+,Addenda:,,,,,,,,
+44,"Personal income excluding current transfer receipts, billions of chained (2017) dollars 5",33.1,67.7,3.4,35.9,18.7,31.1,23.1,11.3
+45,"Disposable personal income, billions of chained (2017) dollars 5",54.2,74.2,40.3,59.2,-6.5,-39.5,-19.1,-13.2
+p Preliminary,,,,,,,,,
+r Revised,,,,,,,,,
+1. Includes actual employer contributions and actuarially imputed employer contributions to reflect benefits accrued by defined benefit pension plan participants through service to employers in the current period.,,,,,,,,,
+"2. Social security benefits include old-age, survivors, and disability insurance benefits that are distributed from the federal old-age and survivors insurance trust fund and the disability insurance trust fund.",,,,,,,,,
+3. Medicare benefits include hospital and supplementary medical insurance benefits that are distributed from the federal hospital insurance trust fund and the supplementary medical insurance trust fund.,,,,,,,,,
+4. Consists of nonmortgage interest paid by households.  Note that mortgage interest paid by households is an expense item in the calculation of rental income of persons.,,,,,,,,,
+5. The current-dollar measure is deflated by the implicit price deflator for personal consumption expenditures.,,,,,,,,,
+Source: U.S. Bureau of Economic Analysis,,,,,,,,,
