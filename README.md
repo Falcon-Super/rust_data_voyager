@@ -67,4 +67,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-If you have any questions or feedback, please contact me via github.
+If you have any questions or feedback, feel free to reach out to me on [GitHub](https://github.com/Falcon-Super) or via email at [salmanium.dev@gmail.com](mailto:salmanium.dev@gmail.com).

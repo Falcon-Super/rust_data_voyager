@@ -1,3 +1,4 @@
 /target
 /Documentation/*.txt
 .DS_Store
+/Documentation/templates

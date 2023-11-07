@@ -4,17 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-# serde = { version = "1.0.190", features = ["derive"] }
 csv = "1.1"
-# hashbrown = "0.14.2"
-# ndarray = "0.15.3"
-# ndarray-stats = "0.5.1"
-# parquet = "48.0.0"
 arrow = "48.0.0"
 polars = "0.34.2"
-# polars-io = { version = "0.34.2", features = ["parquet"] }
-# reqwest = { version = "0.11.12", features = ["blocking"] }
-# color-eyre = "0.6"
-# log = "0.4"
-# polars-arrow = "0.34.2"
-# arrow2 = "0.18.0"

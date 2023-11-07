@@ -7,10 +7,11 @@ use std::error::Error;
 use std::fs::File;
 use csv::Reader;
 
-pub fn perform_data_analysis() -> Result<(), Box<dyn Error>> {
-    // Open the CSV file
-    let file = File::open("iris.arrow")?;
+pub fn perform_data_analysis(input_file: &str) -> Result<(), Box<dyn Error>> {
+    // Open the CSV file with `input_file`
+    let file = File::open(input_file)?;
     let mut reader = Reader::from_reader(file);
+
 
     // Read CSV header to get column names
     let header = reader.headers()?.clone();
