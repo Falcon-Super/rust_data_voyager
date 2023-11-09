@@ -1,4 +1,4 @@
-#import "templates/typst_templates/ams/ams_template.typ": *
+#import "templates/typst_templates/ams_template.typ": *
 #show: ams-article.with(
   title: "My Learning Journey",
   authors: (
@@ -20,7 +20,7 @@ The narrative also highlights the strategic shift to a more manageable dataset, 
 
 The document reflects on the importance of adaptability in learning and the precision required for robust error handling in Rust. It is a testament to the technical milestones achieved and an introspection of the strategic decision-making and problem-solving approaches vital for data science within the Rust ecosystem.
 ],
-  bibliography-file: "refs.bib",
+  bibliography-file: "/Documentation/References/refs.bib",
 )
 // Display inline code in a small box
 // that retains the correct baseline.
@@ -41,7 +41,7 @@ The document reflects on the importance of adaptability in learning and the prec
 
 == Day 1: Rust, APIs, and Containerization Challenges
 
-Embarking on a journey to master Rust for data science, I set my sights on leveraging APIs for dynamic data retrieval. The KAPSARC (King Abdullah Petroleum Studies and Research Center) API promised a wealth of energy data, but tapping into this resource proved to be a complex task.
+Embarking on a journey to master Rust for data science, I set my sights on leveraging APIs for dynamic data retrieval. The KAPSARC (King Abdullah Petroleum Studies and Research Center) API @KAPSARC_API promised a wealth of energy data, but tapping into this resource proved to be a complex task.
 
 === Setting Up with Cargo.toml
 
@@ -82,7 +82,7 @@ The openssl-sys crate, necessary for HTTPS requests, became the center of my str
 
 === Project Scope and Reflections
 
-Amidst the technical battles, the scope of my project began to shift. I had to reassess my goals and adapt my approach to align with my growing understanding of Rust's capabilities and limitations. The initial intention to use Jupyter notebooks for an interactive Rust experience was shelved in favor of focusing on the API integration aspect.
+Amidst the technical battles, the scope of my project began to shift. I had to reassess my goals and adapt my approach to align with my growing understanding of Rust's capabilities and limitations. The initial intention to use Jupyter notebooks @rustjupyter for an interactive Rust experience was shelved in favor of focusing on the API integration aspect.
 
 Day 1 was not just about code; it was about adaptability, problem-solving, and continuous learning. It reinforced the iterative nature of programming, where each error leads to a deeper insight, and every decision shapes the trajectory of the project.
 
@@ -150,7 +150,7 @@ I learned that I had to map the error to the appropriate type or change the func
 
 === Data Export Trials: CSV Format Handling
 
-The day also saw me exploring data exportation. I had been interacting with the KAPSARC API, trying to export datasets. After some trial and error, I decided to attempt exporting a dataset in CSV format. Using the curl command, I fetched the data and saved it to "main.csv". The command looked like this:
+The day also saw me exploring data exportation. I had been interacting with the KAPSARC API @KAPSARC_API, trying to export datasets. After some trial and error, I decided to attempt exporting a dataset in CSV format. Using the curl command, I fetched the data and saved it to "main.csv". The command looked like this:
 
 ```bash
 curl -X 'GET' 'https://datasource.kapsarc.org/api/explore/v2.1/catalog/datasets/the-renewable-energy-policy-paradox/exports/csv' -H 'accept: application/json; charset=utf-8' -o main.csv
@@ -248,11 +248,11 @@ Despite the initial setbacks, I remained committed to utilizing Apache Arrow, ap
 
 === Overcoming Data Complexity with Python Scripting
 
-Acknowledging the complexity of the previous CSV files, I utilized a Python script to break down a comprehensive Excel file into multiple CSV files, leading to a cleaner and more manageable dataset.
+Acknowledging the complexity of the previous CSV files, I utilized a Python script @githubgetsheets to break down a comprehensive Excel file into multiple CSV files, leading to a cleaner and more manageable dataset.
 
 === The Shift to a Cleaned Dataset: 'organization-100.csv'
 
-I pivoted to the 'organization-100.csv' dataset, which was not only cleaner but also free from the encoding issues of the 'iris.csv' file, thereby enhancing my ability to focus on data processing and analysis within Rust.
+I pivoted to the 'organization-100.csv' @organizationdata dataset, which was not only cleaner but also free from the encoding issues of the 'iris.csv' @irisdata file, thereby enhancing my ability to focus on data processing and analysis within Rust.
 
 === Reflections on Adaptability and Tool Selection
 
@@ -323,3 +323,61 @@ Copy code
 Day 7 might not have been characterized by coding breakthroughs, but it was a day that highlighted the importance of the often overlooked aspects of software development: documentation and compliance. By addressing these areas, I was laying down a solid foundation for managing the project's growth and complexity.
 
 The lessons from this day were clear—successful software development is multifaceted, with coding being just one aspect among many that include project management, documentation, and legal considerations. The groundwork laid on this day was crucial for a smooth journey ahead.
+
+== Day 8: Refinement and Augmentation of Error Handling Mechanisms
+
+The eighth day of immersing myself in the Rust landscape was marked by an expansion of the project's error handling capabilities and the integration of new functionalities to enhance data interaction.
+
+=== Enhancing Error Management: Introduction of error_handling.rs
+
+With the increasing complexity of the project, it became imperative to consolidate and refine the error handling mechanisms. To this end, I introduced a new module, error_handling.rs, dedicated exclusively to managing the myriad of potential errors in a more structured and coherent manner. This module's purpose was to encapsulate the various error types and their handling logic, thereby promoting code cleanliness and maintainability.
+
+=== The Iterative Process: Debugging and Problem Resolution
+
+The bulk of the day revolved around the iterative process of debugging. I encountered an array of bugs and errors that demanded attention—each one offering a puzzle to be solved. This process was not just about fixing issues but also about understanding the deeper workings of the Rust language and the third-party libraries it interacts with. Through this rigorous exercise, my proficiency with the language's nuances continued to strengthen.
+
+=== Data Interaction: Developing read_csv.rs
+
+In parallel with refining error handling, I developed another module, read_csv.rs. This new addition to the project was tasked with reading and displaying CSV data directly within the console. By outputting the contents of the CSV to the screen, I could immediately verify the correctness of data ingestion and parsing processes—a crucial step for ensuring the integrity of subsequent data manipulation and analysis.
+
+=== Reflections on Progress and Mastery
+
+Day 8 was a testament to the evolving nature of software development. The day's efforts were directed not only toward problem-solving but also toward improving the project's robustness through better error handling and data interaction. It underscored the importance of resilience and patience, as each challenge surmounted paved the way for a deeper understanding and mastery of the Rust programming language.
+
+As I concluded the day's tasks, it was evident that each line of code refined, and each bug squashed contributed to a more stable and reliable data science toolset within the Rust ecosystem. The journey continued to be as much about the destination as it was about the learnings gleaned along the way.
+
+== Day 9: Integrating Citations into Documentation
+
+The ninth day of my Rust journey was dedicated to enhancing the documentation of my project by integrating citations. This was a crucial step in acknowledging the sources of the datasets and tools that have been instrumental in my data science exploration.
+
+=== Documentation Refinement: The Role of Citations
+
+Understanding the importance of proper citation for the credibility and reproducibility of scientific work, I set out to include references to all the datasets and tools I had utilized. This meticulous process involved creating a structured references file in the BibTeX format and embedding citations within the project documentation.
+
+=== The refs.bib File: A Repository of Citations
+
+I created a `refs.bib` file to store all the bibliographic references in a structured format suitable for LaTeX documents. This BibTeX file contained detailed entries for each citation, ensuring that all sources were accurately and consistently documented. Here's a glimpse of what the entries looked like:
+
+```bib
+@online{bea244u,
+  author = {{Bureau of Economic Analysis}},
+  title = {Table 2.4.4U. Price Indexes for Personal Consumption Expenditures by Type of Product},
+  year = {2020/2022},
+  url = {https://apps.bea.gov/iTable/?reqid=19&step=3&isuri=1&select_all_years=0&nipa_table_list=2013&series=m&first_year=2020&last_year=2022&scale=-99&categories=underlying&thetable=},
+  urldate = {2023-11-07}
+}
+```
+=== Embedding Citations in Typst
+
+With the refs.bib file in place, I proceeded to embed citations within my Typst documentation. Using the citation keys, I could reference the datasets and tools inline, providing readers with the context and sources of the data I analyzed. For example:
+
+```typst
+... the data obtained from the Bureau of Economic Analysis [@bea244u] was pivotal in ...
+```
+
+=== Reflections on Academic Rigor and Integrity
+
+Day 9 was not characterized by coding breakthroughs but by the reinforcement of academic rigor and integrity in my project. By integrating citations, I was not only paying homage to the creators of the tools and compilers of the data but also ensuring that my documentation met the high standards of scientific communication.
+
+It was a day that emphasized that data science is not just about analysis and algorithms; it's also about the responsible presentation and dissemination of information. The addition of citations was a small but significant step toward upholding these values in my learning journey.
+

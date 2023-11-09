@@ -2,3 +2,4 @@
 /Documentation/*.txt
 .DS_Store
 /Documentation/templates
+/Documentation/References/*.yml
