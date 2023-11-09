@@ -1,31 +1,32 @@
-// error_handler.rs
-
-use std::fmt;
-use csv::Error as CsvError;
 use arrow::error::ArrowError;
+use csv::Error as CsvError;
+use std::error::Error;
+use std::fmt;
 use std::io;
+use std::num::ParseFloatError;
 
 #[derive(Debug)]
 pub enum DataError {
     Csv(CsvError),
     Io(io::Error),
     Arrow(ArrowError),
-    ParseFloat(std::num::ParseFloatError),
-    // You can add more error types as needed for your application
+    ParseFloat(ParseFloatError),
+    Other(String), // Catch-all for other error types
 }
 
 impl fmt::Display for DataError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             DataError::Csv(e) => write!(f, "CSV error: {}", e),
             DataError::Io(e) => write!(f, "IO error: {}", e),
             DataError::Arrow(e) => write!(f, "Arrow error: {}", e),
             DataError::ParseFloat(e) => write!(f, "Parse float error: {}", e),
+            DataError::Other(e) => write!(f, "Other error: {}", e),
         }
     }
 }
 
-impl std::error::Error for DataError {}
+impl Error for DataError {}
 
 // Implement From trait to convert from underlying errors to our custom error
 impl From<CsvError> for DataError {
@@ -46,9 +47,22 @@ impl From<ArrowError> for DataError {
     }
 }
 
-impl From<std::num::ParseFloatError> for DataError {
-    fn from(err: std::num::ParseFloatError) -> DataError {
+impl From<ParseFloatError> for DataError {
+    fn from(err: ParseFloatError) -> DataError {
         DataError::ParseFloat(err)
+    }
+}
+
+impl From<Box<dyn Error>> for DataError {
+    fn from(err: Box<dyn Error>) -> DataError {
+        DataError::Other(format!("{}", err))
+    }
+}
+
+// Implement From for &'static str for convenience in error messages
+impl From<&'static str> for DataError {
+    fn from(err: &'static str) -> DataError {
+        DataError::Other(err.to_string())
     }
 }
 

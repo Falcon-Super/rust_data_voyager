@@ -1,86 +1,149 @@
-use arrow::datatypes::{DataType, Field, Schema};
-use csv::ReaderBuilder;
-use std::error::Error;
-use std::fs::File;
-use std::sync::Arc;
-use std::path::Path;
-use std::fs;
 use crate::arrow_converter::convert_csv_to_arrow;
+use crate::error_handler::DataError;
 use crate::EXPECTED_COLUMN_COUNT;
-use crate::data_cleaning::clean_csv_data;
+use arrow::datatypes::{DataType, Field, Schema};
+use csv::{ReaderBuilder, StringRecord};
+use std::fs;
+use std::fs::File;
+use std::path::Path;
+use std::sync::Arc;
 
-pub fn validate_csv_input(input_csv: &str, output_csv: &str, expected_column_count: usize) -> Result<Arc<Schema>, Box<dyn Error>> {
-    // Check if the input CSV file exists and is readable
+pub fn validate_csv_input(
+    input_csv: &str,
+    output_csv: &str,
+    expected_column_count: usize,
+) -> Result<Arc<Schema>, DataError> {
     if !Path::new(input_csv).exists() {
-        return Err(From::from(format!("Input CSV file does not exist: {}", input_csv)));
+        return Err(DataError::Io(std::io::Error::new(
+            std::io::ErrorKind::NotFound,
+            format!("Input CSV file does not exist: {}", input_csv),
+        )));
     }
 
-    let metadata = fs::metadata(input_csv)?;
+    let metadata = fs::metadata(input_csv).map_err(DataError::Io)?;
     if !metadata.is_file() || metadata.permissions().readonly() {
-        return Err(From::from(format!("Input CSV file is not accessible: {}", input_csv)));
+        return Err(DataError::Io(std::io::Error::new(
+            std::io::ErrorKind::PermissionDenied,
+            format!("Input CSV file is not accessible: {}", input_csv),
+        )));
     }
 
-    // Clean the CSV data first
-    clean_csv_data(input_csv, output_csv)?;
-
-    // Open the cleaned CSV to validate
     let mut rdr = ReaderBuilder::new()
         .has_headers(true)
-        .from_path(output_csv)?;
+        .from_path(output_csv)
+        .map_err(DataError::Csv)?;
 
-    // Read headers and validate them
-    let headers = rdr.headers()?;
+    let headers = rdr.headers().map_err(DataError::Csv)?;
     if headers.len() != expected_column_count {
-        return Err(From::from(format!("Unexpected number of columns in header. Expected {}, found {}", expected_column_count, headers.len())));
+        return Err(DataError::Other(format!(
+            "Unexpected number of columns in header. Expected {}, found {}",
+            expected_column_count,
+            headers.len()
+        )));
     }
 
-    // Validate that each row has the correct number of columns
     for (index, result) in rdr.records().enumerate() {
-        let record = result?;
+        let record = result.map_err(DataError::Csv)?;
         if record.len() != expected_column_count {
-            return Err(From::from(format!("Unexpected number of columns at line {}. Expected {}, found {}", index + 2, expected_column_count, record.len())));
+            return Err(DataError::Other(format!(
+                "Unexpected number of columns at line {}. Expected {}, found {}",
+                index + 2,
+                expected_column_count,
+                record.len()
+            )));
         }
     }
 
-    // If all validations pass, build and return the schema
+    // CSV reader with UTF-8 validation
+    let mut rdr = ReaderBuilder::new()
+        .has_headers(true)
+        .from_path(input_csv)
+        .map_err(DataError::Csv)?;
+
+    // Check headers
+    let headers = rdr.headers().map_err(DataError::Csv)?;
+    if headers.len() != expected_column_count {
+        return Err(DataError::Other(format!(
+            "Unexpected number of columns in header. Expected {}, found {}",
+            expected_column_count,
+            headers.len()
+        )));
+    }
+
+    // Validate each record
+    for (index, result) in rdr.records().enumerate() {
+        let record = result.map_err(DataError::Csv)?;
+        validate_record_utf8(&record, index + 2)?;
+        if record.len() != expected_column_count {
+            return Err(DataError::Other(format!(
+                "Unexpected number of columns at line {}. Expected {}, found {}",
+                index + 2,
+                expected_column_count,
+                record.len()
+            )));
+        }
+    }
+
+    // Build schema
     let schema = build_schema()?;
     Ok(Arc::new(schema))
 }
 
+// Validate the UTF-8 encoding of each field in a record
+fn validate_record_utf8(record: &StringRecord, line_number: usize) -> Result<(), DataError> {
+    for (i, field) in record.iter().enumerate() {
+        // Use std::str::from_utf8 instead of str::from_utf8
+        if !std::str::from_utf8(field.as_bytes()).is_ok() {
+            return Err(DataError::Other(format!(
+                "Invalid UTF-8 sequence at line {}, field {}",
+                line_number, i + 1
+            )));
+        }
+    }
+    Ok(())
+}
 
-pub fn validate_and_convert_data(input_csv: &str, output_arrow: &str) -> Result<(), Box<dyn Error>> {
-    let cleaned_csv_path = "Datasets/csv-files//cleaned_data.csv";
-    let schema_arc = validate_csv_input(input_csv, cleaned_csv_path, EXPECTED_COLUMN_COUNT)?;
+// Replace existing validate_and_convert_data function starting from line 29
+pub fn validate_and_convert_data(input_csv: &str, output_arrow: &str) -> Result<(), DataError> {
+    let schema_arc = validate_csv_input(input_csv, output_arrow, EXPECTED_COLUMN_COUNT)?;
     convert_csv_to_arrow(input_csv, output_arrow, &schema_arc)?;
     validate_arrow_output(output_arrow)
 }
 
-
-pub fn validate_output_directory(output_path: &str) -> Result<(), Box<dyn Error>> {
-    let output_dir = Path::new(output_path).parent().ok_or("Output path does not have a parent directory")?;
+pub fn validate_output_directory(output_path: &str) -> Result<(), DataError> {
+    let output_dir = Path::new(output_path)
+        .parent()
+        .ok_or(DataError::Io(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "Output path does not have a parent directory",
+        )))?;
 
     if !output_dir.exists() {
-        // Attempt to create the directory if it does not exist
-        fs::create_dir_all(output_dir)?;
+        fs::create_dir_all(output_dir).map_err(DataError::Io)?;
     }
 
     if !output_dir.is_dir() {
-        return Err(From::from(format!("Output path is not a directory: {}", output_dir.display())));
+        return Err(DataError::Io(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            format!("Output path is not a directory: {}", output_dir.display()),
+        )));
     }
 
-    // Check if the directory is writable
-    let metadata = fs::metadata(output_dir)?;
+    let metadata = fs::metadata(output_dir).map_err(DataError::Io)?;
     if metadata.permissions().readonly() {
-        return Err(From::from(format!("Output directory is not writable (permissions issue): {}", output_dir.display())));
+        return Err(DataError::Io(std::io::Error::new(
+            std::io::ErrorKind::PermissionDenied,
+            format!(
+                "Output directory is not writable (permissions issue): {}",
+                output_dir.display()
+            ),
+        )));
     }
 
     Ok(())
 }
 
-
-
-
-fn build_schema() -> Result<Schema, Box<dyn Error>> {
+fn build_schema() -> Result<Schema, DataError> {
     Ok(Schema::new(vec![
         Field::new("Index", DataType::UInt64, false), // Assuming Index is always present and is an unsigned integer
         Field::new("Organization Id", DataType::Utf8, false), // Strings are represented as Utf8
@@ -94,21 +157,14 @@ fn build_schema() -> Result<Schema, Box<dyn Error>> {
     ]))
 }
 
-
-// fn validate_record(record: &StringRecord, line_number: usize) -> Result<(), Box<dyn Error>> {
-//     if record.len() != EXPECTED_COLUMN_COUNT {
-//         return Err(From::from(format!("Unexpected number of columns at line {}", line_number + 1)));
-//     }
-//     // Additional validation for each field can be added here
-//     Ok(())
-// }
-
-pub fn validate_arrow_output(arrow_output: &str) -> Result<(), Box<dyn Error>> {
-    let file = File::open(arrow_output)?;
-    let reader = arrow::ipc::reader::FileReader::try_new(file, None)?;
+pub fn validate_arrow_output(arrow_output: &str) -> Result<(), DataError> {
+    let file = File::open(arrow_output).map_err(DataError::Io)?;
+    let reader = arrow::ipc::reader::FileReader::try_new(file, None).map_err(DataError::Arrow)?;
 
     if reader.schema().fields().len() != EXPECTED_COLUMN_COUNT {
-        return Err(From::from("Unexpected column count in Arrow file"));
+        return Err(DataError::Arrow(arrow::error::ArrowError::SchemaError(
+            "Unexpected column count in Arrow file".to_string(),
+        )));
     }
 
     Ok(())
