@@ -1,43 +1,41 @@
-#import "templates/typst_templates/ams_template.typ": *
-#show: ams-article.with(
+#import "templates/typst_templates/report-template.typ": *
+#show: report-template.with(
   title: "Data Odyssey: A Personal Journey through Analysis and Code",
+  subject: "Exploring the Depths of Data Science: A Comprehensive Journey with Rust, Docker, and Apache Arrow",
+  top-left: "Kingdom of Saudi Arabia Ministry of Education     King Saud University     College of Business Administration    Department of Management Information Systems",
+  top-right: "       المملكة العربية السعودية                وزارة التعليم                              جامعة الملك سعود                                           كلية إدارة الأعمال                      قسم نظم المعلومات الإدارية            ",
+  company: "King Saud University",
+  company-address: "Riyadh, Saudi Arabia",
   authors: (
-    (
-      name: "Salman Almuzaini",
-      department: [Management Information Systems],
-      organization: [King Saud University],
-      location: [Riyadh, Saudi Arabia],
-      email: "salmanium.dev@gmail.com",
-    ),
+    "Salman Almuzaini",
   ),
-  abstract:[ This document is a detailed record of my foray into data science with Rust, capturing the essence of the journey from initial setup using Cargo to tackling various challenges. It narrates the progression through stages that involved integration with APIs, meticulous error management, and navigating Docker for environmental stability, emphasizing the intricacies of cross-compiling and static linking.
-
-Throughout this exploration, data played a central role, with CSV files such as "Table 2.4.4U. Price Indexes for Personal Consumption Expenditures by Type of Product" and "Table 2.6. Personal Income and Its Disposition, Monthly" serving as fundamental resources. These files, derived from the Bureau of Economic Analysis (BEA), were crucial in analyzing economic indicators within the Rust environment.
-
-A notable point in the journey was the division of the "Personal Consumption Expenditures Price Index.xlsx" file into individual CSV sheets such as "Contents.csv", "Table 1.csv", through "Table 7.csv", a process facilitated by a Python script sourced from GitHub. This script, `getsheets.py`, was instrumental in transforming the multifaceted Excel document into a structured array of CSV files, thereby simplifying the dataset for subsequent analysis.
-
-The narrative also highlights the strategic shift to a more manageable dataset, 'organization-100.csv', for effective analysis, and the utilization of 'iris.csv' for exploring data processing capabilities within Rust. Additionally, the Rust Jupyter notebook, sourced from the Rust user's forum and adapted from online tutorials, provided an interactive platform for executing and testing code snippets, further enriching the learning experience.
-
-The document reflects on the importance of adaptability in learning and the precision required for robust error handling in Rust. It is a testament to the technical milestones achieved and an introspection of the strategic decision-making and problem-solving approaches vital for data science within the Rust ecosystem.
-],
+  date: "November, 2023",
+  logo: "/Documentation/ksu_masterlogo_colour_rgb.png",
+  logo-width: 50%,
+  logo2: none,
+  logo2-width: 60%,
+  color-frame: blue, //#0284BD
   bibliography-file: "/Documentation/References/refs.bib",
-)
-// Display inline code in a small box
-// that retains the correct baseline.
-#show raw.where(block: false): box.with(
-  fill: luma(240),
-  inset: (x: 3pt, y: 0pt),
-  outset: (y: 3pt),
-  radius: 2pt,
+  background-image: "opacity.png",
+  footer-font: "Times New Roman",
+  summary: [This document is a detailed record of my foray into data science with Rust, capturing the essence of the journey from initial setup using Cargo to tackling various challenges. It narrates the progression through stages that involved integration with APIs, meticulous error management, and navigating Docker for environmental stability, emphasizing the intricacies of cross-compiling and static linking.
+
+  Throughout this exploration, data played a central role, with CSV files such as "Table 2.4.4U. Price Indexes for Personal Consumption Expenditures by Type of Product" and "Table 2.6. Personal Income and Its Disposition, Monthly" serving as fundamental resources. These files, derived from the Bureau of Economic Analysis (BEA), were crucial in analyzing economic indicators within the Rust environment.
+
+  A notable point in the journey was the division of the "Personal Consumption Expenditures Price Index.xlsx" file into individual CSV sheets such as "Contents.csv", "Table 1.csv", through "Table 7.csv", a process facilitated by a Python script sourced from GitHub. This script, `getsheets.py`, was instrumental in transforming the multifaceted Excel document into a structured array of CSV files, thereby simplifying the dataset for subsequent analysis.
+
+  The narrative also highlights the strategic shift to a more manageable dataset, 'organization-100.csv', for effective analysis, and the utilization of 'iris.csv' for exploring data processing capabilities within Rust. Additionally, the Rust Jupyter notebook, sourced from the Rust user's forum and adapted from online tutorials, provided an interactive platform for executing and testing code snippets, further enriching the learning experience.
+
+  The document reflects on the importance of adaptability in learning and the precision required for robust error handling in Rust. It is a testament to the technical milestones achieved and an introspection of the strategic decision-making and problem-solving approaches vital for data science within the Rust ecosystem.
+],
 )
 
-// Display block code in a larger block
-// with more padding.
-#show raw.where(block: true): block.with(
-  fill: luma(240),
-  inset: 10pt,
-  radius: 4pt,
-)
+
+
+
+
+
+
 
 == Day 1: Rust, APIs, and Containerization Challenges
 
@@ -198,7 +196,7 @@ To address the increasing complexity of my project, I reorganized my codebase in
 - data_validation.rs: Focused on ensuring data integrity and accuracy.
 The introduction of a lib.rs file allowed these modules to be orchestrated cohesively, with main.rs now acting as the entry point that called upon the library for specific functionalities.
 
-== CSV Parsing: Overcoming API Limitations with Local Data
+=== CSV Parsing: Overcoming API Limitations with Local Data
 
 Faced with the challenges of an unresponsive API, I turned to downloading CSV files for local data analysis. The datasets included:
 
@@ -218,11 +216,11 @@ This led to the enhancement of the create_arrow_schema function to more accurate
 
 The decision to use Apache Arrow's columnar storage was pivotal in replicating real-world data workflows, reinforcing my commitment to utilizing appropriate tools for authentic data science endeavors.
 
-== Data Science with Rust: Evaluating Against Python
+=== Data Science with Rust: Evaluating Against Python
 
 I invested time in evaluating Rust's data manipulation capabilities against Python's, tackling operations like CSV parsing, handling missing values, and adjusting data types. Rust provided granular control, contrasting with Python's user-friendly approach.
 
-== Insights on Language Proficiency and Prospective Pathways
+=== Insights on Language Proficiency and Prospective Pathways
 
 Day 4 marked a significant milestone in my exploration of Rust, where I juxtaposed performance with usability. The insights gained not only deepened my understanding of Rust's strengths in data manipulation but also set the stage for future project hurdles.
 
@@ -403,3 +401,33 @@ After delving into the depths of LaTeX, I made a strategic decision to revert to
 Day 10 was a day of reflection and decision-making. It underscored the importance of choosing the right tools for the job, balancing the sophistication and capabilities of LaTeX against the simplicity and intuitiveness of Typst. This experience highlighted that while advanced features are valuable, the accessibility and ease of use are equally crucial for efficient documentation.
 
 In conclusion, Day 10 was a journey of exploration between two worlds - the established realm of LaTeX and the emerging domain of Typst. It was a reminder that in the realm of data science, the choice of documentation tools is as vital as the analytical tools themselves, shaping the way we present and communicate our findings.
+
+== Day 11: Elevating Documentation with a New Template
+
+On Day 11 of my Rust journey, I delved deeper into the realm of documentation, embracing a new report template to enhance the presentation of my data science project.
+
+=== Embracing a Structured Approach with a New Template
+
+I discovered an innovative report template from LostPy's Typst Templates @lostpytypsttemplate, a tool that promised to streamline my documentation process. This template offered a structured, professional layout, enhancing the overall appearance and organization of my project.
+
+=== Strengthening Academic Integrity with Citations
+
+To uphold the academic integrity of my work, I integrated a citation feature into my documentation. This addition was crucial for acknowledging sources and reinforcing the credibility of my research, a key aspect of any scientific or technical endeavor.
+
+=== Introducing a Summary and Table of Contents for Easy Navigation
+
+To provide a concise overview and facilitate navigation, I added a summary and a table of contents to the report. The summary offered a quick glimpse into the key aspects of the project, while the table of contents allowed for easy and organized access to different sections.
+
+=== Personalizing the Footer for a Unique Touch
+
+Aiming for a more personalized touch, I customized the footer font, enabling me to experiment with different styles and choose one that best complemented the report's aesthetics and readability.
+
+=== Implementing a Logo-Background and Rectifying Citation Issues
+
+I took steps to further personalize the document by implementing a logo-background and addressing citation-related errors, ensuring both visual appeal and accuracy in referencing.
+
+=== Reflecting on Day 11: A Day of Refinement and Enhancement
+
+Day 11 was a pivotal moment in my Rust journey, dedicated to refining and elevating my documentation tools. The introduction of a new template, along with features like citation support, a summary, a table of contents, and footer customization, marked a significant enhancement in the professionalism and comprehensiveness of my project's presentation.
+
+In summary, Day 11 was characterized by building upon the foundational work of previous days, focusing on details that elevate the effectiveness of documentation. This day underscored the ongoing evolution of my journey in Rust and data science, highlighting the importance of continuous improvement and adaptability.
