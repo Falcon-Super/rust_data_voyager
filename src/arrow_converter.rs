@@ -8,6 +8,7 @@ use std::fs::File;
 use std::io::{self, Read};
 use std::sync::Arc;
 
+// Function to read the file and clean it of any Byte Order Marks
 fn clean_and_read_file(path: &str) -> io::Result<String> {
     let mut file = File::open(path)?;
     let mut contents = String::new();
@@ -15,16 +16,19 @@ fn clean_and_read_file(path: &str) -> io::Result<String> {
     Ok(contents.replace("\u{feff}", "")) // Replace BOM if present
 }
 
+// Main function to convert CSV to Arrow format
 pub fn convert_csv_to_arrow(
     input_csv: &str,
     output_arrow: &str,
     schema: &Arc<Schema>,
 ) -> Result<(), Box<dyn Error>> {
+    // Read and clean the CSV file
     let file_contents = clean_and_read_file(input_csv)?;
+    // Initialize CSV reader
     let mut csv_reader = ReaderBuilder::new()
         .has_headers(true)
         .from_reader(file_contents.as_bytes()); // Use the cleaned string here
-
+    // Create the Arrow file writer
     let file = File::create(output_arrow)?;
     let mut arrow_writer = FileWriter::try_new(file, schema)?;
 
@@ -39,15 +43,18 @@ pub fn convert_csv_to_arrow(
     let mut industry_values = Vec::new();
     let mut number_of_employees_values = Vec::new();
 
+    // Iterate over CSV records
     for result in csv_reader.records() {
         let record = result?;
 
         // Parse each column and handle potential errors
+        // Parse and add values to corresponding vectors
         index_values.push(
             record[0]
                 .parse::<u64>()
                 .map_err(|e| format!("Index parsing error: {}", e))?,
         );
+        // Handle potential parsing errors with custom error messages
         org_id_values.push(record[1].to_string());
         name_values.push(record[2].to_string());
         website_values.push(record[3].to_string());
@@ -79,6 +86,7 @@ pub fn convert_csv_to_arrow(
         Arc::new(UInt32Array::from(number_of_employees_values)) as ArrayRef;
 
     // Create a RecordBatch using the schema provided as an argument
+    // Create a RecordBatch
     let batch = RecordBatch::try_new(
         schema.clone(),
         vec![

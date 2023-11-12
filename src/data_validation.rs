@@ -1,3 +1,4 @@
+//data_validation.rs
 use crate::arrow_converter::convert_csv_to_arrow;
 use crate::error_handler::DataError;
 use crate::EXPECTED_COLUMN_COUNT;
@@ -10,7 +11,6 @@ use std::sync::Arc;
 
 pub fn validate_csv_input(
     input_csv: &str,
-    output_csv: &str,
     expected_column_count: usize,
 ) -> Result<Arc<Schema>, DataError> {
     if !Path::new(input_csv).exists() {
@@ -28,9 +28,10 @@ pub fn validate_csv_input(
         )));
     }
 
+    // CSV reader setup
     let mut rdr = ReaderBuilder::new()
         .has_headers(true)
-        .from_path(output_csv)
+        .from_path(input_csv)
         .map_err(DataError::Csv)?;
 
     let headers = rdr.headers().map_err(DataError::Csv)?;
@@ -103,9 +104,8 @@ fn validate_record_utf8(record: &StringRecord, line_number: usize) -> Result<(),
     Ok(())
 }
 
-// Replace existing validate_and_convert_data function starting from line 29
 pub fn validate_and_convert_data(input_csv: &str, output_arrow: &str) -> Result<(), DataError> {
-    let schema_arc = validate_csv_input(input_csv, output_arrow, EXPECTED_COLUMN_COUNT)?;
+    let schema_arc = validate_csv_input(input_csv, EXPECTED_COLUMN_COUNT)?;
     convert_csv_to_arrow(input_csv, output_arrow, &schema_arc)?;
     validate_arrow_output(output_arrow)
 }

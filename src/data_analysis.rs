@@ -1,56 +1,64 @@
-use arrow::array::{ArrayRef, Int64Array};
-use arrow::datatypes::{DataType, Field, Schema};
-use arrow::error::ArrowError;
-use arrow::record_batch::RecordBatch;
-use csv::Reader;
-use polars::prelude::*;
+//data_analysis.rs
+use arrow::ipc::reader::FileReader;
+use arrow::array::{StringArray, UInt32Array, UInt16Array};
 use std::error::Error;
 use std::fs::File;
+use std::collections::HashMap;
+
 
 pub fn perform_data_analysis(input_file: &str) -> Result<(), Box<dyn Error>> {
-    // Open the CSV file with `input_file`
+    println!("Starting data analysis for file: {}", input_file);
+
+    // Open the Arrow file
     let file = File::open(input_file)?;
-    let mut reader = Reader::from_reader(file);
+    println!("File opened successfully.");
 
-    // Read CSV header to get column names
-    let header = reader.headers()?.clone();
+    // Create an Arrow file reader
+    let reader = FileReader::try_new(file, None)?;
 
-    let schema = Schema::new(
-        header
-            .iter()
-            .map(|field| Field::new(&*field, DataType::Utf8, true))
-            .collect::<Vec<Field>>(), // Specify the type explicitly here
-    );
+    let mut total_employees = 0;
+    let mut total_orgs = 0;
+    let mut country_counts: HashMap<String, u32> = HashMap::new();
+    let mut total_years = 0;
+    let mut total_years_count = 0;
 
-    for result in reader.records() {
-        let record = result?;
+    for maybe_batch in reader {
+        let batch = maybe_batch?;
+        println!("Processing record batch.");
 
-        // Parse record into Arrow arrays
-        let arrays: Result<Vec<ArrayRef>, ArrowError> = record
-            .iter()
-            .map(|val| {
-                val.parse::<i64>()
-                    .map_err(|_e| ArrowError::ParseError("Failed to parse i64".to_string())) // Handle the error properly
-                    .map(|parsed_val| Arc::new(Int64Array::from(vec![parsed_val])) as ArrayRef)
-            })
-            .collect();
+        let employees_column = batch.column(8).as_any().downcast_ref::<UInt32Array>().unwrap();
+        let country_column = batch.column(4).as_any().downcast_ref::<StringArray>().unwrap();
+        let founded_column = batch.column(6).as_any().downcast_ref::<UInt16Array>().unwrap();
 
-        let batch = RecordBatch::try_new(schema.clone().into(), arrays?)?;
-        for i in 0..batch.num_columns() {
-            let array = batch.column(i);
-            // Calculate the sum
-            let sum: f64 = array
-                .as_any()
-                .downcast_ref::<Int64Array>()
-                .unwrap()
-                .values()
-                .iter()
-                .map(|&x| x as f64)
-                .sum();
+        // Accumulate totals for employees and years
+        total_employees += employees_column.iter().filter_map(|x| x).sum::<u32>();
+        total_orgs += employees_column.len();
 
-            println!("Column {}: Sum = {}", i, sum);
+        // Count organizations per country
+        for country in country_column.iter() {
+            if let Some(country_name) = country {
+                *country_counts.entry(country_name.to_string()).or_insert(0) += 1;
+            }
+        }
+
+        // Accumulate total founded years
+        for year in founded_column.iter() {
+            if let Some(year) = year {
+                total_years += year as u32;
+                total_years_count += 1;
+            }
         }
     }
+
+    let average_employees = total_employees as f64 / total_orgs as f64;
+    let average_founded_year = total_years as f64 / total_years_count as f64;
+
+    println!("Average number of employees: {}", average_employees);
+    println!("Organizations per country:");
+    for (country, count) in country_counts {
+        println!("{}: {}", country, count);
+    }
+    println!("Average founding year: {}", average_founded_year);
 
     Ok(())
 }
