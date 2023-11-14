@@ -1,9 +1,11 @@
+//error_handler.rs
 use arrow::error::ArrowError;
 use csv::Error as CsvError;
 use std::error::Error;
 use std::fmt;
 use std::io;
-use std::num::ParseFloatError;
+use std::num::{ParseFloatError, ParseIntError};
+use std::str::Utf8Error;
 
 #[derive(Debug)]
 pub enum DataError {
@@ -11,6 +13,8 @@ pub enum DataError {
     Io(io::Error),
     Arrow(ArrowError),
     ParseFloat(ParseFloatError),
+    ParseInt(ParseIntError),
+    Utf8(Utf8Error),
     Other(String), // Catch-all for other error types
 }
 
@@ -21,6 +25,8 @@ impl fmt::Display for DataError {
             DataError::Io(e) => write!(f, "IO error: {}", e),
             DataError::Arrow(e) => write!(f, "Arrow error: {}", e),
             DataError::ParseFloat(e) => write!(f, "Parse float error: {}", e),
+            DataError::ParseInt(e) => write!(f, "Parse integer error: {}", e),
+            DataError::Utf8(e) => write!(f, "UTF-8 decoding error: {}", e),
             DataError::Other(e) => write!(f, "Other error: {}", e),
         }
     }
@@ -53,13 +59,24 @@ impl From<ParseFloatError> for DataError {
     }
 }
 
+impl From<ParseIntError> for DataError {
+    fn from(err: ParseIntError) -> DataError {
+        DataError::ParseInt(err)
+    }
+}
+
+impl From<Utf8Error> for DataError {
+    fn from(err: Utf8Error) -> DataError {
+        DataError::Utf8(err)
+    }
+}
+
 impl From<Box<dyn Error>> for DataError {
     fn from(err: Box<dyn Error>) -> DataError {
         DataError::Other(format!("{}", err))
     }
 }
 
-// Implement From for &'static str for convenience in error messages
 impl From<&'static str> for DataError {
     fn from(err: &'static str) -> DataError {
         DataError::Other(err.to_string())

@@ -1,106 +1,103 @@
+//arrow_converter.rs
 use arrow::array::*;
-use arrow::datatypes::*;
+use arrow::datatypes::{DataType, Field, Schema};
 use arrow::ipc::writer::FileWriter;
 use arrow::record_batch::RecordBatch;
-use csv::ReaderBuilder;
+use csv::{ReaderBuilder, StringRecord};
 use std::error::Error;
 use std::fs::File;
-use std::io::{self, Read};
+use std::io::Read;
 use std::sync::Arc;
 
-// Function to read the file and clean it of any Byte Order Marks
-fn clean_and_read_file(path: &str) -> io::Result<String> {
-    let mut file = File::open(path)?;
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)?;
-    Ok(contents.replace("\u{feff}", "")) // Replace BOM if present
+// Function to infer schema from CSV header
+fn infer_schema(headers: &StringRecord) -> Arc<Schema> {
+    let fields: Vec<Field> = headers
+        .iter()
+        .map(|name| {
+            // Infer the type based on the column name
+            if name.contains("Year") || name.contains("Founded") {
+                Field::new(name, DataType::UInt16, true)
+            } else if name.contains("Number of employees") {
+                Field::new(name, DataType::UInt32, true)
+            } else {
+                Field::new(name, DataType::Utf8, true)
+            }
+        })
+        .collect();
+
+    Arc::new(Schema::new(fields))
 }
 
-// Main function to convert CSV to Arrow format
-pub fn convert_csv_to_arrow(
-    input_csv: &str,
-    output_arrow: &str,
-    schema: &Arc<Schema>,
-) -> Result<(), Box<dyn Error>> {
+pub fn convert_csv_to_arrow(input_csv: &str, output_arrow: &str) -> Result<(), Box<dyn Error>> {
     // Read and clean the CSV file
-    let file_contents = clean_and_read_file(input_csv)?;
+    let mut file = File::open(input_csv)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    let clean_contents = contents.replace("\u{feff}", ""); // Replace BOM if present
+
     // Initialize CSV reader
     let mut csv_reader = ReaderBuilder::new()
         .has_headers(true)
-        .from_reader(file_contents.as_bytes()); // Use the cleaned string here
-    // Create the Arrow file writer
-    let file = File::create(output_arrow)?;
-    let mut arrow_writer = FileWriter::try_new(file, schema)?;
+        .from_reader(clean_contents.as_bytes());
 
-    // Initialize vectors for each column
-    let mut index_values = Vec::new();
-    let mut org_id_values = Vec::new();
-    let mut name_values = Vec::new();
-    let mut website_values = Vec::new();
-    let mut country_values = Vec::new();
-    let mut description_values = Vec::new();
-    let mut founded_values = Vec::new();
-    let mut industry_values = Vec::new();
-    let mut number_of_employees_values = Vec::new();
+    let headers = csv_reader.headers()?.clone();
+    let schema = infer_schema(&headers);
 
-    // Iterate over CSV records
-    for result in csv_reader.records() {
-        let record = result?;
-
-        // Parse each column and handle potential errors
-        // Parse and add values to corresponding vectors
-        index_values.push(
-            record[0]
-                .parse::<u64>()
-                .map_err(|e| format!("Index parsing error: {}", e))?,
-        );
-        // Handle potential parsing errors with custom error messages
-        org_id_values.push(record[1].to_string());
-        name_values.push(record[2].to_string());
-        website_values.push(record[3].to_string());
-        country_values.push(record[4].to_string());
-        description_values.push(record[5].to_string());
-        founded_values.push(
-            record[6]
-                .parse::<u16>()
-                .map_err(|e| format!("Founded year parsing error: {}", e))?,
-        );
-        industry_values.push(record[7].to_string());
-        number_of_employees_values.push(
-            record[8]
-                .parse::<u32>()
-                .map_err(|e| format!("Number of employees parsing error: {}", e))?,
-        );
+    // Initialize builders for each column
+    let mut builders: Vec<Box<dyn ArrayBuilder>> = vec![];
+    for field in schema.fields() {
+        match field.data_type() {
+            DataType::Utf8 => builders.push(Box::new(StringBuilder::new())),
+            DataType::UInt16 => builders.push(Box::new(UInt16Builder::new())),
+            DataType::UInt32 => builders.push(Box::new(UInt32Builder::new())),
+            // Add other data types as needed
+            _ => return Err("Unsupported data type".into()),
+        }
     }
 
-    // Create Arrow arrays from the vectors
-    let index_array = Arc::new(UInt64Array::from(index_values)) as ArrayRef;
-    let org_id_array = Arc::new(StringArray::from(org_id_values)) as ArrayRef;
-    let name_array = Arc::new(StringArray::from(name_values)) as ArrayRef;
-    let website_array = Arc::new(StringArray::from(website_values)) as ArrayRef;
-    let country_array = Arc::new(StringArray::from(country_values)) as ArrayRef;
-    let description_array = Arc::new(StringArray::from(description_values)) as ArrayRef;
-    let founded_array = Arc::new(UInt16Array::from(founded_values)) as ArrayRef;
-    let industry_array = Arc::new(StringArray::from(industry_values)) as ArrayRef;
-    let number_of_employees_array =
-        Arc::new(UInt32Array::from(number_of_employees_values)) as ArrayRef;
+    // Process each row
+    for result in csv_reader.records() {
+        let record = result?;
+        for (i, field) in schema.fields().iter().enumerate() {
+            let value = record.get(i).unwrap_or_default();
+            match field.data_type() {
+                DataType::Utf8 => {
+                    let builder = builders[i]
+                        .as_any_mut()
+                        .downcast_mut::<StringBuilder>()
+                        .unwrap();
+                    builder.append_value(value.to_string());
+                }
+                DataType::UInt16 => {
+                    let builder = builders[i]
+                        .as_any_mut()
+                        .downcast_mut::<UInt16Builder>()
+                        .unwrap();
+                    builder.append_value(value.parse()?);
+                }
+                DataType::UInt32 => {
+                    let builder = builders[i]
+                        .as_any_mut()
+                        .downcast_mut::<UInt32Builder>()
+                        .unwrap();
+                    builder.append_value(value.parse()?);
+                }
+                // Add other data types as needed
+                _ => {}
+            }
+        }
+    }
 
-    // Create a RecordBatch using the schema provided as an argument
     // Create a RecordBatch
-    let batch = RecordBatch::try_new(
-        schema.clone(),
-        vec![
-            index_array,
-            org_id_array,
-            name_array,
-            website_array,
-            country_array,
-            description_array,
-            founded_array,
-            industry_array,
-            number_of_employees_array,
-        ],
-    )?;
+    let mut column_arrays: Vec<ArrayRef> = Vec::new();
+    for mut builder in builders {
+        column_arrays.push(builder.finish());
+    }
+    let batch = RecordBatch::try_new(schema.clone(), column_arrays)?;
+
+    // Create the Arrow file writer
+    let file = File::create(output_arrow)?;
+    let mut arrow_writer = FileWriter::try_new(file, &schema)?;
 
     // Write the RecordBatch to the Arrow file
     arrow_writer.write(&batch)?;
@@ -113,3 +110,5 @@ pub fn convert_csv_to_arrow(
 
     Ok(())
 }
+
+// Additional validation functions can be included here or in a separate module

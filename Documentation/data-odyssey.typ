@@ -379,7 +379,6 @@ Day 9 was not characterized by coding breakthroughs but by the reinforcement of 
 
 It was a day that emphasized that data science is not just about analysis and algorithms; it's also about the responsible presentation and dissemination of information. The addition of citations was a small but significant step toward upholding these values in my learning journey.
 
-
 == Day 10: Navigating Between LaTeX and Typst Formats
 
 The tenth day of my Rust journey found me grappling with documentation formats, as I oscillated between LaTeX and Typst. This exploration was driven by a quest to find the most effective and efficient way to document my data science project.
@@ -431,3 +430,90 @@ I took steps to further personalize the document by implementing a logo-backgrou
 Day 11 was a pivotal moment in my Rust journey, dedicated to refining and elevating my documentation tools. The introduction of a new template, along with features like citation support, a summary, a table of contents, and footer customization, marked a significant enhancement in the professionalism and comprehensiveness of my project's presentation.
 
 In summary, Day 11 was characterized by building upon the foundational work of previous days, focusing on details that elevate the effectiveness of documentation. This day underscored the ongoing evolution of my journey in Rust and data science, highlighting the importance of continuous improvement and adaptability.
+
+== Day 12: Overcoming Data Analysis Challenges and Enhancing Functionality
+
+On the twelfth day of my Rust journey, I encountered and overcame a significant challenge in my data analysis process, leading to a deeper understanding of the tools and data formats involved.
+
+=== Resolving the UTF-8 Error: Insightful Debugging
+
+While working with my data set, I faced an error: 
+
+```bash
+Csv(Error(Utf8 { pos: Some(Position { byte: 0, line: 1, record: 0 }), err: Utf8Error { field: 0, valid_up_to: 8 } }))
+```
+
+To diagnose and fix this issue, I took a methodical approach, adding more print statements in data_cleaning.rs and data_analysis.rs. These additional logs helped me trace the data flow more effectively.
+
+Initially, after reading the entire CSV file in read_csv.rs, I printed it out again post-cleaning in data_cleaning.rs. In data_analysis.rs, I inserted detailed print statements to track the analysis process, such as:
+
+```rust
+println!("Starting data analysis for file: {}", input_file);
+println!("File opened successfully.");
+println!("Processing record batch.");
+```
+
+=== Identifying the Root Cause: Misinterpreted Data Format
+
+Through this detailed logging, I discovered that I was mistakenly processing an Arrow file as if it were a CSV file. As you might know, an Arrow file is binary, not a text file. This revelation was crucial, as it allowed me to correctly interpret and process the data.
+
+=== Implementing Basic Data Analysis Functions
+
+After rectifying the file format issue, I proceeded to add basic data analysis functions. These functions provided valuable insights into the dataset, which I outputted with print statements:
+
+```rust
+println!("Average number of employees: {}", average_employees);
+println!("Organizations per country:");
+For each country and its count in the dataset, println!("{}: {}", country, count);
+println!("Average founding year: {}", average_founded_year);
+```
+
+=== Reflections: The Importance of Detail-Oriented Debugging
+
+Day 12 was a day marked by a crucial learning experience in data analysis and debugging. It highlighted the importance of being detail-oriented and methodical in troubleshooting. This experience not only helped me overcome the immediate error but also reinforced my understanding of data formats and the importance of correct data processing in Rust.
+
+In conclusion, Day 12 was an enlightening chapter in my Rust journey, teaching me valuable lessons about the intricacies of data analysis and the significance of careful debugging and data format awareness.
+
+== Day 13: Expanding Data Processing and Tackling New Challenges
+
+On the thirteenth day of my Rust journey, I embarked on a significant expansion of my data processing capabilities, transitioning from handling a single CSV file to managing an entire directory of diverse data sets.
+
+=== Transitioning to a Directory of CSV Files
+
+The day's task involved changing the focus from a single file, organization-100.csv, to a directory named Datasets/csv-files. This directory housed multiple CSV files, each of which required cleaning, validation, and eventual conversion into Arrow format, stored in Datasets/arrow-files.
+
+=== Dynamic Schema Challenges and Organizational Shifts
+
+A key challenge I faced was creating a dynamic Arrow schema capable of accommodating a variety of CSV files with different column structures. I also realized that my conversion logic from CSV to Arrow was mistakenly placed in data_validation.rs, while it should have been in arrow_converter.rs. Rectifying this helped streamline the process.
+
+=== Encountering and Resolving Data Format Errors
+
+During this process, I encountered a specific error:
+
+```sh
+Error: Error(UnequalLengths { pos: Some(Position { byte: 246, line: 3, record: 3 }), expected_len: 1, len: 47 })
+```
+This issue arose because the first three lines in the BEA CSV files were titles and table names, while the last six lines were legends or footnotes. Addressing this discrepancy was crucial for accurate data processing.
+
+=== Debugging Rust Code: The Borrow Checker
+
+Another technical hurdle I encountered was a Rust-specific error:
+
+```sh
+error[E0716]: temporary value dropped while borrowed
+  --> src/data_cleaning.rs:57:77
+   |
+57 |     let mut csv_reader = ReaderBuilder::new().has_headers(true).from_reader(data_lines.join("\n").as_bytes());
+   |                                                                             ^^^^^^^^^^^^^^^^^^^^^            - temporary value is freed at the end of this statement
+   |                                                                             |
+   |                                                                             creates a temporary value which is freed while still in use
+```
+This error was a classic case of Rust's borrow checker in action, requiring me to adjust the lifespan of a temporary value. By introducing a let binding, I resolved this issue, allowing the CSV reader to function correctly.
+
+=== Reflections: Scaling Up Data Analysis
+
+Day 13 was a day of scaling up and adapting to new complexities. Transitioning from analyzing a single file to processing an entire directory presented unique challenges, particularly in ensuring dynamic compatibility and correct data format handling.
+
+This day taught me the intricacies of managing larger datasets and the importance of flexible schema design in Rust. It was a step up in complexity, highlighting the differences between handling individual files and dealing with a collection of diverse datasets.
+
+In conclusion, Day 13 marked a significant leap in my data processing capabilities. It was a day filled with learning and problem-solving, demonstrating the evolving nature of my Rust journey and the continuous adaptation required to handle increasingly complex data science tasks.
