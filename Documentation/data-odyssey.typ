@@ -2,7 +2,7 @@
 #show: report-template.with(
   title: "Data Odyssey: A Personal Journey through Analysis and Code",
   subject: "Exploring the Depths of Data Science: A Comprehensive Journey with Rust, Docker, and Apache Arrow",
-  top-left: "Kingdom of Saudi Arabia Ministry of Education     King Saud University     College of Business Administration    Department of Management Information Systems",
+  top-left: "Kingdom of Saudi Arabia  Ministry of Education     King Saud University     College of Business Administration    Department of Management Information Systems",
   top-right: "       المملكة العربية السعودية                وزارة التعليم                              جامعة الملك سعود                                           كلية إدارة الأعمال                      قسم نظم المعلومات الإدارية            ",
   company: "King Saud University",
   company-address: "Riyadh, Saudi Arabia",
@@ -16,7 +16,7 @@
   logo2-width: 60%,
   color-frame: blue, //#0284BD
   bibliography-file: "/Documentation/References/refs.bib",
-  background-image: "opacity.png",
+  background-image: none,
   footer-font: "Times New Roman",
   summary: [This document is a detailed record of my foray into data science with Rust, capturing the essence of the journey from initial setup using Cargo to tackling various challenges. It narrates the progression through stages that involved integration with APIs, meticulous error management, and navigating Docker for environmental stability, emphasizing the intricacies of cross-compiling and static linking.
 
@@ -517,3 +517,39 @@ Day 13 was a day of scaling up and adapting to new complexities. Transitioning f
 This day taught me the intricacies of managing larger datasets and the importance of flexible schema design in Rust. It was a step up in complexity, highlighting the differences between handling individual files and dealing with a collection of diverse datasets.
 
 In conclusion, Day 13 marked a significant leap in my data processing capabilities. It was a day filled with learning and problem-solving, demonstrating the evolving nature of my Rust journey and the continuous adaptation required to handle increasingly complex data science tasks.
+
+== Day 14 & 15: Academic Commitments and Time Management
+
+The fourteenth and fifteenth days of my Rust journey saw a temporary pause in active development as I turned my focus to university studies and examinations. These days were a reminder of the delicate balance between academic responsibilities and personal projects.
+
+=== Prioritizing University Work
+
+During these two days, I dedicated my time and effort to academic studies, preparing for and attending exams. The shift in focus underscored the importance of time management and the ability to juggle different aspects of life, such as education and passion projects.
+
+=== Reflecting on the Interplay of Learning and Coding
+
+While I was not actively coding, the time spent on academic pursuits was not devoid of relevance to my Rust journey. The concepts and problem-solving skills honed during my studies indirectly contributed to my programming abilities, reinforcing the interconnected nature of different fields of knowledge.
+
+In summary, Days 14 and 15 were a testament to the ongoing challenge of balancing multiple commitments. They highlighted the importance of flexibility and the ability to adapt to changing priorities in one's journey towards learning and personal growth.
+
+== Day 16: GitHub Upload and Open Call for Contributions
+
+On the sixteenth day, I took a significant step in my Rust journey by uploading my project to GitHub. This move, although marked by existing errors in the project, opened the doors to collaboration and contributions from the wider coding community.
+
+=== Uploading the Project to GitHub
+
+I uploaded my project to GitHub, fully aware that it still had errors and was a work in progress. This decision was driven by the belief in open-source collaboration and the value of community contributions.
+
+=== Acknowledging Current Errors and Seeking Contributions
+
+The project, in its current state, contains several errors and areas that require improvement. Recognizing this, I openly welcome contributions from other developers. The spirit of open-source is about collaborative improvement, and I believe that the collective wisdom of the community can help resolve these issues and enhance the project.
+
+=== Embracing the Open-Source Community
+
+By making the project available on GitHub, I am not only seeking solutions to the current problems but also inviting diverse perspectives and ideas. This step marks a significant transition from working in isolation to engaging with a global community of developers.
+
+=== Reflections: The Value of Community and Collaboration
+
+Day 16 was a day of opening up and embracing the broader programming community. It was about stepping beyond the confines of individual effort and acknowledging the power of collaborative development.
+
+In conclusion, Day 16 marked a new phase in my Rust journey, where the project transitions from a personal endeavor to a community-driven initiative. It's a reminder that in the world of software development, sharing, collaboration, and collective problem-solving are essential for growth and success.
